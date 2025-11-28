@@ -1,0 +1,9 @@
+name: flowstrat
+channels:
+- conda-forge
+dependencies:
+- python=3.9
+- ipykernel
+- pip
+- pip:
+  - poetry

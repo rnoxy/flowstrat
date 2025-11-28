@@ -1,0 +1,28 @@
+{% for scenario in ['scenario1d', 'scenario2d', 'scenarioWind2d'] %}
+
+{{ scenario }}.dataset_train:
+    type: pickle.PickleDataSet
+    filepath: data/{{ scenario }}/dataset_train.pkl
+
+{{ scenario }}.model:
+    type: flowstrat.kedro_extras.TorchModelDataSet
+    filepath: data/{{ scenario }}/model.pt
+
+{{ scenario }}.evaluation_results:
+    type: pickle.PickleDataSet
+    filepath: data/{{ scenario }}/evaluation.pkl
+
+{% endfor %}
+
+
+scenarioTS3d.dataset_train:
+    type: pickle.PickleDataSet
+    filepath: data/scenarioTS3d/dataset_train.pkl
+
+scenarioTS3d.model:
+    type: pickle.PickleDataSet
+    filepath: data/scenarioTS3d/model.pkl
+
+scenarioTS3d.evaluation_results:
+    type: pickle.PickleDataSet
+    filepath: data/scenarioTS3d/evaluation.pkl

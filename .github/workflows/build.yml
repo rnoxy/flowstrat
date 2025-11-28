@@ -1,0 +1,76 @@
+# This workflow is to test the package installation and build process.
+
+name: Build
+
+on:
+  push:
+#    branches: [ main ] # TODO: uncomment this line when the main branch is created
+
+env:
+  COLUMNS: 200
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies (with Poetry)
+        run: |
+          pip install poetry
+          poetry config virtualenvs.create false   # disable virtualenv creation
+          poetry install
+
+      - name: Run sanity_check pipeline
+        run: |
+          kedro run --pipeline sanity_check
+
+      - name: Run pytest
+        run: |
+          pytest --no-cov
+
+      - name: Run scenario1d pipeline
+        run: |
+          kedro run --pipeline scenario1d
+
+      - name: Check the existence of the scenario1d files
+        run: |
+          test -f data/scenario1d/dataset_train.pkl
+          test -f data/scenario1d/model.pt
+          test -f data/scenario1d/evaluation.pkl
+
+      - name: Run scenario2d pipeline
+        run: |
+          kedro run --pipeline scenario2d
+
+      - name: Check the existence of the scenario2d files
+        run: |
+          test -f data/scenario2d/dataset_train.pkl
+          test -f data/scenario2d/model.pt
+          test -f data/scenario2d/evaluation.pkl
+
+      - name: Run scenarioWind2d pipeline
+        run: |
+          kedro run --pipeline scenarioWind2d
+
+      - name: Check the existence of the scenarioWind2d files
+        run: |
+          test -f data/scenarioWind2d/dataset_train.pkl
+          test -f data/scenarioWind2d/model.pt
+          test -f data/scenarioWind2d/evaluation.pkl
+
+      - name: Run scenarioTS3d pipeline
+        run: |
+          kedro run --pipeline scenarioTS3d
+
+      - name: Check the existence of the scenarioTS3d files
+        run: |
+          test -f data/scenarioTS3d/dataset_train.pkl
+          test -f data/scenarioTS3d/model.pkl
+          test -f data/scenarioTS3d/evaluation.pkl

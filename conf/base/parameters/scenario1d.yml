@@ -1,0 +1,24 @@
+
+scenario1d:
+  name: scenario1d
+
+  dataset_generation:
+    n_train: 2000
+
+  model:
+    input_dim: 1
+    args: # use [] - empty list to use default values
+      - "--dims"
+      - "64-64"
+
+  # In order to reproduce the results, please use the values after the comment
+  model_training:
+    n_epochs: 10            # 5000
+    lrate: 0.0001           # 0.0001
+    weight_decay: 0.00001   # 0.00001
+
+  model_evaluation:
+    n_samples: [1024, 2048]    # [32768, 262144] - R (in the paper)
+    methods: ["regular"]       # ["regular"]     - regular means M1 (in the paper)
+    strata: [4, 16]            # [4, 16]         - number of strata (m in the paper)
+    repeats: 1                 # 10 or 100       - nr of repeats

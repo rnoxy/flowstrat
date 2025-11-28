@@ -1,0 +1,5 @@
+[core]
+    remote = models
+    autostage = true
+['remote "models"']
+    url = gdrive://1DIgpgq5Ga5EBYssNoJ6uzZM7lejLJUkq

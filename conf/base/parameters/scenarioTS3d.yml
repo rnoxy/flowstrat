@@ -1,0 +1,44 @@
+
+scenarioTS3d:
+  name: scenarioTS3d
+
+  dataset_generation:
+    data_type: synthetic
+    dim: 3
+
+    # parameters for the multivariate t distribution
+    distributions:
+      - { name: tsnd, df: 5, correlation: 0.2 }
+
+    n_train: 25000 # first 20k is used for training other 5k is validation during model training
+    n_test: 25000  # this one is never used
+
+  model:
+    input_dim: 3
+    args: [] # empty list loads default args values
+
+  # In order to reproduce the results, please use the values after the comment
+  model_training:
+    n_epochs: 10   #  10000 # early stopping with 50 epochs mercy implemented
+    lr: 0.01
+    base: norm
+    noise: 0.00
+
+  model_evaluation:
+    args:
+      - "--dim"
+      - "3"
+      - "--R"
+      - "50000"
+      - "--Rpilot"
+      - "10000"
+      - "--function"
+      - "h2"
+      - "--strata_mode"
+      - "spherical"
+      - "--n_strata_r"
+      - "10"
+      - "--n_strata_phi"
+      - "10"
+      - "--n_strata_phi_last"
+      - "10"

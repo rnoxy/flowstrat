@@ -1,0 +1,16 @@
+.git
+.github
+.dvc
+.ipynb_checkpoints
+.polyaxon
+.pytest_cache
+.envrc
+data
+datasets
+legacy
+docs
+dvc-data
+logs
+notebooks
+notes
+polyaxonfiles
